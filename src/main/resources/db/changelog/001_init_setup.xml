@@ -1,0 +1,69 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <!-- Table: invoice -->
+    <changeSet id="create-invoice-table" author="milos-zivkovic">
+        <createTable tableName="invoice">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="issuance_date" type="datetime"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Table: invoice_item -->
+    <changeSet id="create-invoice-item-table" author="milos-zivkovic">
+        <createTable tableName="invoice_item">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="amount" type="double"/>
+            <column name="price" type="double"/>
+            <column name="invoice_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Add foreign key constraint for invoice_item -->
+    <changeSet id="add-foreign-key-invoice-item" author="milos-zivkovic">
+        <addForeignKeyConstraint baseTableName="invoice_item" baseColumnNames="invoice_id"
+                                 constraintName="fk_invoice_id" referencedTableName="invoice"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <!-- Table: retail_item -->
+    <changeSet id="create-retail-item-table" author="milos-zivkovic">
+        <createTable tableName="retail_item">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="price" type="double"/>
+            <column name="amount_left" type="double"/>
+            <column name="discount_id" type="bigint"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Table: item_discount -->
+    <changeSet id="create-item-discount-table" author="milos-zivkovic">
+        <createTable tableName="item_discount">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="starting_from" type="datetime"/>
+            <column name="ends" type="datetime"/>
+            <column name="percentage" type="double"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Add foreign key constraint for retail_item -->
+    <changeSet id="add-foreign-key-retail-item" author="milos-zivkovic">
+        <addForeignKeyConstraint baseTableName="retail_item" baseColumnNames="discount_id"
+                                 constraintName="fk_discount_id" referencedTableName="item_discount"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,37 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <!-- Insert data into the invoice table -->
+    <changeSet id="insert-invoice-data" author="milos-zivkovic">
+        <sql>INSERT INTO invoice (issuance_date) VALUES ('2024-01-01 12:00:00'),
+            ('2024-01-15 14:30:00'),
+            ('2024-01-20 10:45:00');</sql>
+    </changeSet>
+
+    <!-- Insert data into the invoice_item table -->
+    <changeSet id="insert-invoice-item-data" author="milos-zivkovic">
+        <sql>INSERT INTO invoice_item (amount, price, invoice_id) VALUES (2.0, 10.0, 1),
+            (3.0, 15.0, 1),
+            (1.0, 5.0, 2),
+            (3.0, 2.0, 2),
+            (1.0, 11.0, 2),
+            (4.0, 20.0, 3);</sql>
+    </changeSet>
+
+    <!-- Insert data into the item_discount table -->
+    <changeSet id="insert-item-discount-data" author="milos-zivkovic">
+        <sql>INSERT INTO item_discount (name, starting_from, ends, percentage) VALUES ('Discount A', '2023-01-01 00:00:00', '2023-06-30 23:59:59', 10.0),
+            ('Discount B', '2023-03-15 00:00:00', '2023-09-30 23:59:59', 15.0),
+            ('Discount C', '2023-05-01 00:00:00', '2023-12-31 23:59:59', 20.0);</sql>
+    </changeSet>
+
+    <!-- Insert data into the retail_item table -->
+    <changeSet id="insert-retail-item-data" author="milos-zivkovic">
+        <sql>INSERT INTO retail_item (name, price, amount_left, discount_id) VALUES ('Item A', 20.0, 50.0, 1),
+            ('Orange', 15.0, 30.0, 2),
+            ('Apple', 25.0, 20.0, 3);</sql>
+    </changeSet>
+
+</databaseChangeLog>
